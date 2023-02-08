@@ -1,6 +1,9 @@
 export const login = (req, res) => {
     res.status(200).json({
-        login: true
+        login: {
+            email: req.body.email,
+            password: req.body.password
+        }
     });
 }
 
