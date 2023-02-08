@@ -1,4 +1,8 @@
 export const login = (req, res) => {
+    const token = jwt.sign({
+
+    })
+
     res.status(200).json({
         login: {
             email: req.body.email,
