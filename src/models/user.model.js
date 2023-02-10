@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema
 
-const userSchema = new Schema({
+export const userSchema = new Schema({
     _id: Schema.Types.ObjectId,
     email: {
         type: String,

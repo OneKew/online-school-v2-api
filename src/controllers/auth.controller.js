@@ -1,7 +1,9 @@
-export const login = (req, res) => {
-    const token = jwt.sign({
+import {createUser} from "../services/passport.service.js";
 
-    })
+export const login = (req, res) => {
+    // const token = jwt.sign({
+    //
+    // })
 
     res.status(200).json({
         login: {
@@ -12,7 +14,7 @@ export const login = (req, res) => {
 }
 
 export const registerUser = (req, res) => {
+    createUser(req)
     res.status(200).json({
-        register: true
     });
 }
