@@ -36,7 +36,6 @@ export async function createUser(regBody) {
     const password = regBody.password;
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt)
-
     const doc = new User({
         _id: new mongoose.Types.ObjectId(),
         email: regBody.email,
