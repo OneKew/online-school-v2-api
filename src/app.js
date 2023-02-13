@@ -5,6 +5,9 @@ import morgan from "morgan";
 import cors from "cors";
 import mongoose from "mongoose";
 import {mongoURI} from "./config/keys.config.js";
+import {passportRouter} from "./routes/passport.routes.js";
+import {courseRouter} from "./routes/course.routes.js";
+import {adminRouter} from "./routes/admin.routes.js";
 
 export const app = express()
 
@@ -24,3 +27,5 @@ mongoose.connect(mongoURI)
 
 
 app.use('/api/auth', authRouter)
+app.use('/api', passportRouter, courseRouter)
+app.use('/api/admin', adminRouter)

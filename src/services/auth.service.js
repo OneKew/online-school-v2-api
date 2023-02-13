@@ -49,3 +49,22 @@ export async function createUser(regBody) {
     return user
 }
 
+export const checkCredentials = (req, res, next) => {
+    const token = (req.headers.authorization || '').replace(/Bearer\s?/, '');
+    if (token) {
+        try {
+            const decoded = jwt.verify(token, 'fullstackProjectSecret');
+            req.user = decoded
+            next();
+        } catch (err) {
+            return res.status(401).json({
+                message: 'Invalid Grant.'
+            });
+        }
+    } else {
+        return res.status(401).json({
+            message: 'Invalid Grant.'
+        });
+    }
+}
+

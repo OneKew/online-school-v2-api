@@ -4,7 +4,7 @@ import {validationResult} from "express-validator"
 
 export const login = async (req, res) => {
     try {
-        const token = await loginWithCreds(req.body)
+        const token = await loginWithCreds(req.body);
         if (token.message) res.status(400).json({message: 'Invalid Credentials.'})
         res.status(200).json(
             {
@@ -13,7 +13,7 @@ export const login = async (req, res) => {
             }
         )
     } catch (err) {
-        res.status(400).json({message: 'Invalid Credentials.'})
+        res.status(500).json(err)
     }
 }
 
@@ -26,7 +26,6 @@ export const registerUser = async (req, res) => {
         res.status(200).json(user)
 
     } catch (err) {
-        console.error(err)
-        res.status(400).json({message: 'Registration error.'})
+        res.status(500).json(err)
     }
 }
