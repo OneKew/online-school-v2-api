@@ -17,6 +17,7 @@ export const login = async (req, res) => {
     }
 }
 
+
 export const registerUser = async (req, res) => {
     try {
         const errors = validationResult(req)
