@@ -5,10 +5,7 @@ export const getProfile = async (req, res) => {
         const message = await getUserData(req.claims);
         if (message.message) res.status(400)
         else res.status(200)
-        res.json({
-            success: message.message ? false : true,
-            message
-        });
+        res.json(message);
     } catch (err) {
         res.status(500).json(err)
     }
@@ -19,10 +16,7 @@ export const changeProfile = async (req, res) => {
         const message = await updateProfile(req);
         if (message.message) res.status(400);
         else res.status(200)
-        res.json({
-            success: message.message ? false : true,
-            message
-        })
+        res.json(message)
     } catch (err) {
         console.log(err)
         res.status(500).json(err)

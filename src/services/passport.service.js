@@ -14,9 +14,15 @@ export const updateProfile = async (req) => {
         name: req.body.name,
         phone: req.body.phone
     }
-    const updated = User.findOneAndUpdate(conditions, newUserData).catch(() => {
-        return {message: `Error. Can't update user with id: ${conditions._id}`}
-    })
-
+    const updated = User.findOneAndUpdate(conditions, newUserData)
+        .then(upd => {
+            if (upd['_doc']) {
+                const {passwordHash, ...userData} = upd['_doc'];
+                return userData
+            } else return upd
+        })
+        .catch(() => {
+            return {message: `Error. Can't update user with id: ${conditions._id}`}
+        })
     return updated
 }

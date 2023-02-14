@@ -36,10 +36,14 @@ export async function createUser(regBody) {
         phone: regBody.phone,
         courses: []
     })
-    const user = await doc.save().catch(() => {
+    const response = await doc.save().catch(() => {
         return {message: 'User already exists.'}
     });
-    return user
+    if (response['_doc']) {
+        const {passwordHash, ...userData} = response['_doc'];
+        return userData
+    } else
+        return response
 }
 
 export const checkCredentials = (req, res, next) => {
