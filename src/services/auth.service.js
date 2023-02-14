@@ -1,14 +1,8 @@
 import {User} from "../models/user.model.js";
-import {body} from "express-validator"
 import bcrypt from "bcrypt"
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 
-export const registrationValidator = [
-    body('email', 'Invalid email.').isEmail(),
-    body('password', 'Password minimum length 8 symbols.').isLength({min: 8}),
-    body('name', 'Invalid name.').isLength({min: 3})
-]
 
 export async function loginWithCreds(regBody) {
     const user = await User.findOne({email: regBody.email});
@@ -42,7 +36,9 @@ export async function createUser(regBody) {
         phone: regBody.phone,
         courses: []
     })
-    const user = await doc.save().catch(() => {return {message: 'User already exists.'}});
+    const user = await doc.save().catch(() => {
+        return {message: 'User already exists.'}
+    });
     return user
 }
 
@@ -51,7 +47,7 @@ export const checkCredentials = (req, res, next) => {
     if (token) {
         try {
             const decoded = jwt.verify(token, 'fullstackProjectSecret');
-            req.user = decoded
+            req.claims = decoded
             next();
         } catch (err) {
             return res.status(401).json({

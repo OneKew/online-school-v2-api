@@ -2,7 +2,7 @@ import {getUserData, updateProfile} from "../services/passport.service.js";
 
 export const getProfile = async (req, res) => {
     try {
-        const message = await getUserData(req.user);
+        const message = await getUserData(req.claims);
         if (message.message) res.status(400)
         else res.status(200)
         res.json({
@@ -16,10 +16,15 @@ export const getProfile = async (req, res) => {
 
 export const changeProfile = async (req, res) => {
     try {
-        const updatedUser = await updateProfile(req);
-        if (!updatedUser) res.status(404).end();
-        res.status(200).json(updatedUser)
+        const message = await updateProfile(req);
+        if (message.message) res.status(400);
+        else res.status(200)
+        res.json({
+            success: message.message ? false : true,
+            message
+        })
     } catch (err) {
+        console.log(err)
         res.status(500).json(err)
     }
 }

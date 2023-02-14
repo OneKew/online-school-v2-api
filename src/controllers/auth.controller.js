@@ -1,5 +1,4 @@
 import {createUser, loginWithCreds} from "../services/auth.service.js";
-import {validationResult} from "express-validator"
 
 
 export const login = async (req, res) => {
