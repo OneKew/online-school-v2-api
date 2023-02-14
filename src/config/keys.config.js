@@ -1,2 +1,2 @@
-export const mongoURI = "mongodb+srv://admin:admin@cluster0.xjeapn1.mongodb.net/fullstack?retryWrites=true&w=majority";
+export const mongoURI = "mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.7.1";
 

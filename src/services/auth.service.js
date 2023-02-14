@@ -1,22 +1,20 @@
 import {User} from "../models/user.model.js";
 import {body} from "express-validator"
 import bcrypt from "bcrypt"
-import mongoose, {Schema} from "mongoose";
-import {re} from "@babel/core/lib/vendor/import-meta-resolve.js";
+import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 
-//todo make validation error messages
 export const registrationValidator = [
-    body('email', '').isEmail(),
-    body('password').isLength({min: 8}),
-    body('name').isLength({min: 3})
+    body('email', 'Invalid email.').isEmail(),
+    body('password', 'Password minimum length 8 symbols.').isLength({min: 8}),
+    body('name', 'Invalid name.').isLength({min: 3})
 ]
 
 export async function loginWithCreds(regBody) {
     const user = await User.findOne({email: regBody.email});
-    if (!user) return {message: 'Not valid credentials.'}
+    if (!user) return {message: 'User does not exist.'}
     const isValidPass = await bcrypt.compare(regBody.password, user.passwordHash)
-    if (!isValidPass) return {message: 'Not valid credentials'}
+    if (!isValidPass) return {message: 'Invalid credentials'}
     const token = jwt.sign(
         {
             id: user._id,
@@ -29,7 +27,7 @@ export async function loginWithCreds(regBody) {
             expiresIn: '30d'
         }
     )
-    return token
+    return {token: token}
 }
 
 export async function createUser(regBody) {
@@ -44,7 +42,7 @@ export async function createUser(regBody) {
         phone: regBody.phone,
         courses: []
     })
-    const user = await doc.save();
+    const user = await doc.save().catch(() => {return {message: 'User already exists.'}});
     return user
 }
 

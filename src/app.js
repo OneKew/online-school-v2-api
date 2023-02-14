@@ -12,7 +12,7 @@ import {adminRouter} from "./routes/admin.routes.js";
 export const app = express()
 
 
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json());
 
 app.use(cors())
@@ -20,10 +20,9 @@ app.use(morgan('dev'))
 
 
 mongoose.set('strictQuery', true);
-mongoose.connect(mongoURI)
+mongoose.connect(mongoURI, {useNewUrlParser: true})
     .then(console.log('MongoDB connected.'))
     .catch(error => console.error(error))
-
 
 
 app.use('/api/auth', authRouter)

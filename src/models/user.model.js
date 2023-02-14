@@ -19,8 +19,6 @@ export const userSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Course'
     }]
-
-
 })
 
 export const User = mongoose.model('User', userSchema)
