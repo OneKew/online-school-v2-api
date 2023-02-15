@@ -49,7 +49,13 @@ export const updateSelectedCourse = async (req, res) => {
 //----------------------------------------------------------------------------------------------------------------------
 
 export const createModule = async (req, res) => {
-
+    try {
+        const module = await courseService.createModule(req.body, req.params.id);
+        res.json({module})
+    } catch (e) {
+        console.log(e)
+        res.status(500).json(e.message)
+    }
 }
 
 export const getSelectedModule = async (req, res) => {

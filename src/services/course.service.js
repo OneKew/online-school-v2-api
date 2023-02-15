@@ -1,5 +1,7 @@
 import {Course} from "../models/course.model.js";
+import {Module} from "../models/module.model.js";
 import mongoose from "mongoose";
+
 
 class CourseService {
 
@@ -11,7 +13,6 @@ class CourseService {
     }
 
     async createCourse(req) {
-        console.log('req', req.claims)
         const doc = new Course({
             _id: new mongoose.Types.ObjectId(),
             name: req.body.name,
@@ -42,6 +43,24 @@ class CourseService {
                 throw new Error(e);
             })
         return course;
+    }
+
+    async createModule(moduleData, courseId) {
+        const doc = new Module({
+            _id: new mongoose.Types.ObjectId(),
+            name: moduleData.name,
+            course: courseId
+        });
+        const module = await doc.save()
+            .then(async md => {
+                await Course.findByIdAndUpdate(courseId, {$push: {modules: [md['_id']]}});
+                return md;
+            })
+            .catch((e) => {
+                console.log(e);
+                throw new Error(`Module creating error`);
+            });
+        return module
     }
 }
 
