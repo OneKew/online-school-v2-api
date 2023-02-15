@@ -26,7 +26,3 @@ courseRouter.get('/course/:id/view', credentialsValidator, courseController.view
 
 
 courseRouter.post('/course');
-
-// adminRouter.post('/login', authController.login)
-//
-// adminRouter.post('/register', authController.registerUser)

@@ -1,8 +1,15 @@
-export const createCourse = (req, res) => {
-
-}
+import courseService from "../services/course.service.js";
 
 export const getCourses = (req, res) => {
+    try {
+        const courses = courseService.getCourses();
+    } catch (e) {
+        console.log(e)
+        res.status(500).json(e)
+    }
+}
+
+export const createCourse = (req, res) => {
 
 }
 

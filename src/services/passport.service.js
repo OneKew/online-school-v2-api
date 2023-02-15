@@ -1,7 +1,7 @@
 import {User} from "../models/user.model.js";
 
 class PassportService {
-    getUserData = async (reqBody) => {
+    async getUserData(reqBody) {
         const user = await User.findById(reqBody.id).catch(() => {
             return {message: `Can't find user with id: ${reqBody.id}`}
         });
@@ -9,11 +9,11 @@ class PassportService {
         return {...userData};
     }
 
-    updateProfile = async (req) => {
+    async updateProfile(reqBody) {
         const conditions = {_id: req.claims.id};
         const newUserData = {
-            name: req.body.name,
-            phone: req.body.phone
+            name: reqBody.name,
+            phone: reqBody.phone
         }
         const updated = User.findOneAndUpdate(conditions, newUserData)
             .then(upd => {
