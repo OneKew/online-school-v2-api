@@ -62,6 +62,24 @@ class CourseService {
             });
         return module
     }
+
+    async getSelectedModule(id) {
+        const module = await Module.findById(id).catch(() => {
+            throw new Error(`Can't find course with id: ${id}`)
+        })
+        return module;
+    }
+
+    async updateSelectedModule(body, id) {
+        const newDoc = {
+            name: body.name,
+        }
+        const module = await Module.findByIdAndUpdate(id, newDoc, {new: true})
+            .catch((e) => {
+                throw new Error(e);
+            })
+        return module;
+    }
 }
 
 export default new CourseService();

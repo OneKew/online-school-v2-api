@@ -14,12 +14,12 @@ courseRouter.get('/courses/:id', credentialsValidator, courseController.getSelec
 courseRouter.patch('/courses/:id', credentialsValidator, courseValidator, validationErrorHandlerUtil, courseController.updateSelectedCourse)
 
 courseRouter.post('/courses/:id/modules', credentialsValidator, courseController.createModule)
-courseRouter.get('/courses/:id/modules/:id', credentialsValidator, courseController.getSelectedModule)
-courseRouter.patch('/courses/:id/modules/:id', credentialsValidator, courseController.updateSelectedModule)
+courseRouter.get('/modules/:id', credentialsValidator, courseController.getSelectedModule)
+courseRouter.patch('/modules/:id', credentialsValidator, courseController.updateSelectedModule)
 
-courseRouter.post('/courses/:id/modules/:id/lessons', credentialsValidator, courseController.createLesson)
-courseRouter.get('/courses/:id/modules/:id/lessons/:id', credentialsValidator, courseController.getSelectedLesson)
-courseRouter.patch('/courses/:id/modules/:id/lessons/:id', credentialsValidator, courseController.updateSelectedLesson)
+courseRouter.post('/courses/:course-id/modules/:module-id/lessons', credentialsValidator, courseController.createLesson)
+courseRouter.get('/lessons/:lesson-id', credentialsValidator, courseController.getSelectedLesson)
+courseRouter.patch('/lessons/:lesson-id', credentialsValidator, courseController.updateSelectedLesson)
 
 
 courseRouter.get('/courses/:id/view', credentialsValidator, courseController.viewCourse)

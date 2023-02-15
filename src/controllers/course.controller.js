@@ -50,7 +50,7 @@ export const updateSelectedCourse = async (req, res) => {
 
 export const createModule = async (req, res) => {
     try {
-        const module = await courseService.createModule(req.body, req.params.id);
+        const module = await courseService.createModule(req.body, req.params.courseId);
         res.json({module})
     } catch (e) {
         console.log(e)
@@ -59,11 +59,23 @@ export const createModule = async (req, res) => {
 }
 
 export const getSelectedModule = async (req, res) => {
-
+    try {
+        const module = await courseService.getSelectedModule(req.params.id);
+        res.json({module})
+    } catch (e) {
+        console.log(e)
+        res.status(500).json(e.message)
+    }
 }
 
 export const updateSelectedModule = async (req, res) => {
-
+    try {
+        const module = await courseService.updateSelectedModule(req.body, req.params.id);
+        res.json({module})
+    } catch (e) {
+        console.log(e)
+        res.status(500).json(e.message)
+    }
 }
 
 //----------------------------------------------------------------------------------------------------------------------
