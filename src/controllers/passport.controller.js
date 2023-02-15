@@ -1,8 +1,8 @@
-import {getUserData, updateProfile} from "../services/passport.service.js";
+import passportService from "../services/passport.service.js";
 
 export const getProfile = async (req, res) => {
     try {
-        const message = await getUserData(req.claims);
+        const message = await passportService.getUserData(req.claims);
         if (message.message) res.status(400)
         else res.status(200)
         res.json(message);
@@ -13,7 +13,7 @@ export const getProfile = async (req, res) => {
 
 export const changeProfile = async (req, res) => {
     try {
-        const message = await updateProfile(req);
+        const message = await passportService.updateProfile(req);
         if (message.message) res.status(400);
         else res.status(200)
         res.json(message)

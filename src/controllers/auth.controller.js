@@ -1,16 +1,14 @@
-import {createUser, loginWithCreds} from "../services/auth.service.js";
+import authService from "../services/auth.service.js";
 
 
 export const login = async (req, res) => {
     try {
-        const message = await loginWithCreds(req.body);
+        const message = await authService.login(req.body);
         if (message.message) res.status(400)
         else res.status(200)
-
-
         res.json(
             {
-                success: message.message? false : true,
+                success: message.message ? false : true,
                 message
             }
         )
@@ -22,7 +20,7 @@ export const login = async (req, res) => {
 
 export const registerUser = async (req, res) => {
     try {
-        const response = await createUser(req.body)
+        const response = await authService.createUser(req.body)
         if (response.message) res.status(400)
         else res.status(200)
         res.json(response);
