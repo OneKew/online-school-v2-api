@@ -13,7 +13,7 @@ export const getProfile = async (req, res) => {
 
 export const changeProfile = async (req, res) => {
     try {
-        const message = await passportService.updateProfile(req.body);
+        const message = await passportService.updateProfile(req);
         if (message.message) res.status(400);
         else res.status(200)
         res.json(message)

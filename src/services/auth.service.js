@@ -24,20 +24,20 @@ class AuthService{
         return {token: token}
     }
 
-    async createUser(regBody) {
-        const password = regBody.password;
+    async createUser(reqBody) {
+        const password = reqBody.password;
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(password, salt)
         const doc = new User({
             _id: new mongoose.Types.ObjectId(),
-            email: regBody.email,
+            email: reqBody.email,
             passwordHash: hash,
-            name: regBody.name,
-            phone: regBody.phone,
+            name: reqBody.name,
+            phone: reqBody.phone,
             courses: []
-        })
+        });
         const response = await doc.save().catch(() => {
-            return {message: 'User already exists.'}
+            return {message: 'User already exists.'};
         });
         if (response['_doc']) {
             const {passwordHash, ...userData} = response['_doc'];

@@ -9,13 +9,12 @@ class PassportService {
         return {...userData};
     }
 
-    async updateProfile(reqBody) {
-        const conditions = {_id: req.claims.id};
+    async updateProfile(req) {
         const newUserData = {
-            name: reqBody.name,
-            phone: reqBody.phone
+            name: req.body.name,
+            phone: req.body.phone
         }
-        const updated = User.findOneAndUpdate(conditions, newUserData)
+        const updated = await User.findByIdAndUpdate(req.claims.id, newUserData, {new: true})
             .then(upd => {
                 if (upd['_doc']) {
                     const {passwordHash, ...userData} = upd['_doc'];
@@ -23,7 +22,7 @@ class PassportService {
                 } else return upd
             })
             .catch(() => {
-                return {message: `Error. Can't update user with id: ${conditions._id}`}
+                return {message: `Error. Can't update user with id: ${req.claims.id}`}
             })
         return updated
     }

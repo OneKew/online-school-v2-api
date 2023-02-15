@@ -1,49 +1,85 @@
 import courseService from "../services/course.service.js";
 
-export const getCourses = (req, res) => {
+//----------------------------------------------------------------------------------------------------------------------
+//                                              Course
+//----------------------------------------------------------------------------------------------------------------------
+
+export const getCourses = async (req, res) => {
     try {
-        const courses = courseService.getCourses();
+        const courses = await courseService.getUserCourses(req.claims);
+        res.json({courses})
     } catch (e) {
         console.log(e)
         res.status(500).json(e)
     }
 }
 
-export const createCourse = (req, res) => {
+export const createCourse = async (req, res) => {
+    try {
+        const course = await courseService.createCourse(req);
+        res.json({course})
+    } catch (e) {
+        console.log(e)
+        res.status(500).json(e.message)
+    }
+}
+
+export const getSelectedCourse = async (req, res) => {
+    try {
+        const course = await courseService.getSelectedCourse(req);
+        res.json({course})
+    } catch (e) {
+        console.log(e)
+        res.status(500).json(e.message)
+    }
+}
+
+export const updateSelectedCourse = async (req, res) => {
+    try {
+        const course = await courseService.updateSelectedCourse(req);
+        res.json({course})
+    } catch (e) {
+        console.log(e)
+        res.status(500).json(e.message)
+    }
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+//                                              Module
+//----------------------------------------------------------------------------------------------------------------------
+
+export const createModule = async (req, res) => {
 
 }
 
-export const getSelectedCourse = (req, res) => {
-
-}
-export const viewCourse = (req, res) => {
+export const getSelectedModule = async (req, res) => {
 
 }
 
-export const updateSelectedLesson = (req, res) => {
+export const updateSelectedModule = async (req, res) => {
 
 }
 
-export const createModule = (req, res) => {
+//----------------------------------------------------------------------------------------------------------------------
+//                                              Lesson
+//----------------------------------------------------------------------------------------------------------------------
+
+export const createLesson = async (req, res) => {
 
 }
 
-export const updateSelectedModule = (req, res) => {
+export const updateSelectedLesson = async (req, res) => {
 
 }
 
-export const getSelectedModule = (req, res) => {
+export const getSelectedLesson = async (req, res) => {
 
 }
 
-export const createLesson = (req, res) => {
+//----------------------------------------------------------------------------------------------------------------------
+//                                              Course View
+//----------------------------------------------------------------------------------------------------------------------
 
-}
-
-export const updateSelectedCourse = (req, res) => {
-
-}
-
-export const getSelectedLesson = (req, res) => {
+export const viewCourse = async (req, res) => {
 
 }
