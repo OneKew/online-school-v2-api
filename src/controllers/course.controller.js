@@ -6,11 +6,11 @@ import courseService from "../services/course.service.js";
 
 export const getCourses = async (req, res) => {
     try {
-        const courses = await courseService.getUserCourses(req.claims);
+        const courses = await courseService.getCourses();
         res.json({courses})
     } catch (e) {
         console.log(e)
-        res.status(500).json(e)
+        res.status(500).json(e.message)
     }
 }
 
@@ -50,7 +50,7 @@ export const updateSelectedCourse = async (req, res) => {
 
 export const createModule = async (req, res) => {
     try {
-        const module = await courseService.createModule(req.body, req.params.courseId);
+        const module = await courseService.createModule(req.body, req.params.id);
         res.json({module})
     } catch (e) {
         console.log(e)
@@ -83,21 +83,59 @@ export const updateSelectedModule = async (req, res) => {
 //----------------------------------------------------------------------------------------------------------------------
 
 export const createLesson = async (req, res) => {
-
+    try {
+        const lesson = await courseService.createLesson(req.body, req.params.id);
+        res.json({lesson})
+    } catch (e) {
+        console.log(e)
+        res.status(500).json(e.message)
+    }
 }
 
 export const updateSelectedLesson = async (req, res) => {
-
+    try {
+        const lesson = await courseService.updateSelectedLesson(req.body, req.params.id);
+        res.json({lesson})
+    } catch (e) {
+        console.log(e)
+        res.status(500).json(e.message)
+    }
 }
 
 export const getSelectedLesson = async (req, res) => {
-
+    try {
+        const lesson = await courseService.getSelectedLesson(req.params.id);
+        res.json({lesson})
+    } catch (e) {
+        console.log(e)
+        res.status(500).json(e.message)
+    }
 }
 
 //----------------------------------------------------------------------------------------------------------------------
 //                                              Course View
 //----------------------------------------------------------------------------------------------------------------------
 
-export const viewCourse = async (req, res) => {
-
+export const getUserCourses = async (req, res) => {
+    try {
+        const courses = await courseService.getUserCourses(req.claims.id);
+        res.json({courses})
+    } catch (e) {
+        console.log(e)
+        res.status(500).json(e.message)
+    }
 }
+
+
+export const viewCourse = async (req, res) => {
+    try {
+        const course = await courseService.viewCourse(req.params.id);
+        res.json({course})
+    } catch (e) {
+        console.log(e)
+        res.status(500).json(e.message)
+    }
+}
+
+
+

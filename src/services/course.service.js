@@ -1,6 +1,8 @@
 import {Course} from "../models/course.model.js";
 import {Module} from "../models/module.model.js";
 import mongoose from "mongoose";
+import {Lesson} from "../models/lesson.model.js";
+import {Assignment} from "../models/assignment.model.js";
 
 
 class CourseService {
@@ -8,6 +10,13 @@ class CourseService {
     async getUserCourses(claims) {
         const courses = await Course.findById(claims._id).catch(e => {
             throw new Error(`Can't find user with id: ${claims._id}`)
+        })
+        return courses;
+    }
+
+    async getCourses() {
+        const courses = await Course.find().catch(e => {
+            throw new Error(e);
         })
         return courses;
     }
@@ -65,7 +74,7 @@ class CourseService {
 
     async getSelectedModule(id) {
         const module = await Module.findById(id).catch(() => {
-            throw new Error(`Can't find course with id: ${id}`)
+            throw new Error(`Can't find module with id: ${id}`)
         })
         return module;
     }
@@ -79,6 +88,60 @@ class CourseService {
                 throw new Error(e);
             })
         return module;
+    }
+
+    async createLesson(body, moduleId) {
+        const doc = new Lesson({
+            _id: new mongoose.Types.ObjectId(),
+            module: moduleId,
+            name: body.name,
+            description: body.description,
+            text: body.text,
+            embedded: body.embedded,
+        });
+        const lesson = await doc.save()
+            .then(async ls => {
+                if (ls['embedded']) await Assignment.findByIdAndUpdate(ls['embedded'].checkpoints.question)
+                    .catch(e => {
+                        throw new Error(e);
+                    })
+                await Module.findByIdAndUpdate(moduleId, {$push: {lessons: [ls['_id']]}})
+                    .catch(e => {
+                        throw new Error(e);
+                    })
+                return ls;
+            })
+            .catch((e) => {
+                console.log(e);
+                throw new Error(`Lesson creating error`);
+            });
+        return lesson
+    }
+
+    async getSelectedLesson(id) {
+        const lesson = await Lesson.findById(id).catch(() => {
+            throw new Error(`Can't find lesson with id: ${id}`)
+        })
+        return lesson;
+    }
+
+    async updateSelectedLesson(body, id) {
+        const newDoc = {
+            name: body.name,
+            description: body.description,
+            text: body.text,
+            embedded: body.embedded
+        }
+        const lesson = await Lesson.findByIdAndUpdate(id, newDoc, {new: true})
+            .catch((e) => {
+                throw new Error(e);
+            })
+        return lesson;
+    }
+
+//todo make courseView
+    async viewCourse(id) {
+
     }
 }
 

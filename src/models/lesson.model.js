@@ -14,11 +14,13 @@ export const lessonSchema = new Schema({
     text: String,
 
     embedded: {
-        url: {type: String, required: true},
-        checkpoints: [{
-            timestamp: {type: Number, required: true},
-            question: {type: Schema.Types.ObjectId, ref: 'Assignment', required: true}
-        }]
+        type: {
+            url: {type: String, required: true},
+            checkpoints: [{
+                timestamp: {type: Number, required: true},
+                question: {type: Schema.Types.ObjectId, ref: 'Assignment', required: true}
+            }]
+        }, required: false
     },
 
     assignments: [{
