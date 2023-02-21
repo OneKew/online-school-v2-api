@@ -7,13 +7,6 @@ import {Assignment} from "../models/assignment.model.js";
 
 class CourseService {
 
-    async getUserCourses(claims) {
-        const courses = await Course.findById(claims._id).catch(e => {
-            throw new Error(`Can't find user with id: ${claims._id}`)
-        })
-        return courses;
-    }
-
     async getCourses() {
         const courses = await Course.find().catch(e => {
             throw new Error(e);
@@ -34,9 +27,9 @@ class CourseService {
         return course;
     }
 
-    async getSelectedCourse(req) {
-        const course = await Course.findById(req.params.id).catch(() => {
-            throw new Error(`Can't find course with id: ${req.params.id}`)
+    async getSelectedCourse(id) {
+        const course = await Course.findById(id).catch(() => {
+            throw new Error(`Can't find course with id: ${id}`)
         })
         const {owner, ...courseData} = course['_doc'];
         return courseData;
@@ -139,9 +132,27 @@ class CourseService {
         return lesson;
     }
 
+    async getUserCourses(id) {
+        const courses = await Course.findById(id).catch(e => {
+            throw new Error(`Can't find user with id: ${id}`)
+        })
+        return courses;
+    }
+
 //todo make courseView
     async viewCourse(id) {
-
+        const course = await Course.findById(id)
+            .populate({
+                path: 'modules',
+                populate: {
+                    path: 'lessons'
+                }
+            })
+            .catch(e => {
+                console.log(e)
+                throw new Error(`Can't find course with id: ${id}`)
+            })
+        return course
     }
 }
 

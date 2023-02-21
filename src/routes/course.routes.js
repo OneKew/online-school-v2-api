@@ -10,7 +10,7 @@ import courseOwnerHandler from "../utils/credentialsHandlers/courseOwner.handler
 
 export const courseRouter = express.Router();
 
-courseRouter.get('/courses/all', credentialsHandler, courseOwnerHandler, courseController.getCourses);
+courseRouter.get('/courses/all', credentialsHandler, courseController.getCourses);
 
 courseRouter.post('/courses', credentialsHandler, courseValidator, validationErrorHandlerUtil, courseController.createCourse)
 courseRouter.get('/courses/:id', credentialsHandler, courseController.getSelectedCourse);
@@ -25,7 +25,8 @@ courseRouter.get('/lessons/:id', credentialsHandler, courseController.getSelecte
 courseRouter.patch('/lessons/:id', credentialsHandler, lessonValidator, validationErrorHandlerUtil, courseController.updateSelectedLesson)
 
 
-courseRouter.get('/courses', credentialsHandler, courseOwnerHandler, courseController.getUserCourses)
+courseRouter.get('/courses', credentialsHandler, courseController.getUserCourses)
+
 
 courseRouter.get('/courses/:id/view', credentialsHandler, courseOwnerHandler, courseController.viewCourse)
 

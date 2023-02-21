@@ -1,22 +1,35 @@
-import jwt from "jsonwebtoken";
-
 //todo make handler
-export default (req, res, next) => {
-    // const token = (req.headers.authorization || '').replace(/Bearer\s?/, '');
-    // if (token) {
-    //     try {
-    //         const decoded = jwt.verify(token, 'fullstackProjectSecret');
-    //         req.claims = decoded
-    //         next();
-    //     } catch (err) {
-    //         return res.status(401).json({
-    //             message: 'Invalid Grant.'
-    //         });
-    //     }
-    // } else {
-    //     return res.status(401).json({
-    //         message: 'Invalid Grant.'
-    //     });
-    // }
-    next();
+import courseService from "../../services/course.service.js";
+
+export default async (req, res, next) => {
+
+    try {
+        const courses = await courseService.getUserCourses(req.claims.id)
+            .catch(e => {
+                throw new Error(e)
+            });
+        const courseId = req.params.id
+
+        const selectedCourse = await courseService.getSelectedCourse(courseId)
+            .catch(e => {
+                throw new Error(e)
+            });
+        if (courses === null) return res.status(403).json({
+            message: 'You don\'t have permissions to the course.'
+        }).end()
+        if (courses.indexOf(selectedCourse) !== -1) {
+            next();
+        }
+
+        return res.status(403).json({
+            message: 'You don\'t have permissions to the course.'
+        });
+
+
+    } catch (e) {
+        console.log(e)
+        return res.status(403).json({
+            message: 'You don\'t have permissions to the course.'
+        });
+    }
 }

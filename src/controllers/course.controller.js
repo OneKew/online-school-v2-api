@@ -26,7 +26,7 @@ export const createCourse = async (req, res) => {
 
 export const getSelectedCourse = async (req, res) => {
     try {
-        const course = await courseService.getSelectedCourse(req);
+        const course = await courseService.getSelectedCourse(req.params.id);
         res.json({course})
     } catch (e) {
         console.log(e)
