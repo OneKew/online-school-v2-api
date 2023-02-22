@@ -3,6 +3,7 @@ import {Module} from "../models/module.model.js";
 import mongoose from "mongoose";
 import {Lesson} from "../models/lesson.model.js";
 import {Assignment} from "../models/assignment.model.js";
+import {User} from "../models/user.model.js";
 
 
 class CourseService {
@@ -133,9 +134,10 @@ class CourseService {
     }
 
     async getUserCourses(id) {
-        const courses = await Course.findById(id).catch(e => {
+        const {courses: courses1} = await User.findById(id).catch(e => {
             throw new Error(`Can't find user with id: ${id}`)
         })
+        const courses = await Course.find({_id: courses1})
         return courses;
     }
 

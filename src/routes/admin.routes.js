@@ -12,6 +12,6 @@ adminRouter.delete('/users/:id', adminController.deleteSelectedUser)
 
 adminRouter.patch('/users/:id', adminController.updateUserClaims)
 
-adminRouter.patch('/users/:id/courses/:course-id', adminController.signUpForTheCourse)
+adminRouter.patch('/users/:id/courses', adminController.signUpForTheCourse)
 
 

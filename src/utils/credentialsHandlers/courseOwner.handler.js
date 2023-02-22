@@ -1,29 +1,21 @@
 //todo make handler
 import courseService from "../../services/course.service.js";
+import {User} from "../../models/user.model.js";
+import {Types} from "mongoose";
 
 export default async (req, res, next) => {
 
     try {
-        const courses = await courseService.getUserCourses(req.claims.id)
-            .catch(e => {
-                throw new Error(e)
-            });
-        const courseId = req.params.id
 
-        const selectedCourse = await courseService.getSelectedCourse(courseId)
-            .catch(e => {
-                throw new Error(e)
-            });
-        if (courses === null) return res.status(403).json({
-            message: 'You don\'t have permissions to the course.'
-        }).end()
-        if (courses.indexOf(selectedCourse) !== -1) {
-            next();
-        }
+        const courseId = Types.ObjectId(req.params.id)
+        const doc = await User.findById(req.claims.id, {courses: 1})
+        const courses = doc.courses
 
-        return res.status(403).json({
+        if (courses.indexOf(courseId) !== -1) {
+            next()
+        } else res.status(403).json({
             message: 'You don\'t have permissions to the course.'
-        });
+        }).end();
 
 
     } catch (e) {
