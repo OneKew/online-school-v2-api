@@ -5,8 +5,8 @@ class PassportService {
         const user = await User.findById(reqBody.id).catch(() => {
             return {message: `Can't find user with id: ${reqBody.id}`}
         });
-        const {passwordHash, ...userData} = user["_doc"];
-        return {...userData};
+        const {passwordHash, roles, ...userData} = user["_doc"];
+        return userData;
     }
 
     async updateProfile(req) {

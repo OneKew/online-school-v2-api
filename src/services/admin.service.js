@@ -3,6 +3,23 @@ import {Role} from "../models/roles.model.js";
 
 class AdminService {
 
+    async getUsers() {
+        let users = await User.find();
+        users = users.map(usr => {
+            const {passwordHash, courses, ...data} = usr['_doc'];
+            return data;
+        });
+        return users
+    }
+
+    async getSelectedUser(id) {
+        const user = await User.findById(id)
+            .catch(() => {
+                throw new Error(`Can't find user with id: ${id}`);
+            })
+        const {passwordHash, ...usrData} = user['_doc'];
+        return usrData;
+    }
 
     async signUpForTheCourse(courses, id) {
         const user = await User.findByIdAndUpdate(id, {courses: courses})
@@ -12,12 +29,6 @@ class AdminService {
             })
         const {passwordHash, ...userData} = user["_doc"];
         return {...userData};
-    }
-
-    async createRoles(body) {
-        for (const value of body.roles) {
-            await new Role({value: value}).save();
-        }
     }
 
     async updateUserClaims(body, id) {
@@ -34,6 +45,18 @@ class AdminService {
         const {passwordHash, ...updatedData} = updated['_doc'];
         return updatedData;
     }
+
+    async deleteSelectedUser(id) {
+        await User.findByIdAndDelete(id);
+        return;
+    }
+
+    async createRoles(body) {
+        for (const value of body.roles) {
+            await new Role({value: value}).save();
+        }
+    }
+
 }
 
 export default new AdminService();
