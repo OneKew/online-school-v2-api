@@ -13,7 +13,23 @@ export const deleteSelectedUser = async (req, res) => {
 }
 
 export const updateUserClaims = async (req, res) => {
+    try {
+        const user = await adminService.updateUserClaims(req.body, req.params.id);
+        res.json(user)
+    } catch (e) {
+        console.log(e)
+        res.status(500).json(e.message)
+    }
+}
 
+export const createRoles = async (req, res) => {
+    try {
+        await adminService.createRoles(req.body)
+        res.json('Roles have been created.')
+    } catch (e) {
+        console.log(e)
+        res.status(500).json(e.message)
+    }
 }
 
 export const signUpForTheCourse = async (req, res) => {

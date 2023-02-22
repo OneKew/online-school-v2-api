@@ -6,6 +6,8 @@ export const adminRouter = express.Router()
 
 adminRouter.get('/users', adminController.getUsers)
 
+adminRouter.post('/roles/new', adminController.createRoles)
+
 adminRouter.get('/users/:id', adminController.getSelectedUser)
 
 adminRouter.delete('/users/:id', adminController.deleteSelectedUser)

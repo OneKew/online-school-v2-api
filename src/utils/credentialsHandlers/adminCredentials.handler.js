@@ -6,8 +6,10 @@ export default (req, res, next) => {
     if (token) {
         try {
             const decoded = jwt.verify(token, jwtSecret);
-            req.claims = decoded
-            next();
+            if (decoded.roles.includes('ADMIN')) {
+                req.claims = decoded
+                next();
+            }
         } catch (err) {
             return res.status(401).json({
                 message: 'Invalid Grant.'

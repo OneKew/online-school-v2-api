@@ -9,20 +9,22 @@ import {passportRouter} from "./routes/passport.routes.js";
 import {courseRouter} from "./routes/course.routes.js";
 import {adminRouter} from "./routes/admin.routes.js";
 import {assignmentRouter} from "./routes/assignment.routes.js";
+import adminCredentialsHandler from "./utils/credentialsHandlers/adminCredentials.handler.js";
+import credentialsHandler from "./utils/credentialsHandlers/credentials.handler.js";
 
-export const app = express()
+export const app = express();
 
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-app.use(cors())
-app.use(morgan('dev'))
+app.use(cors());
+app.use(morgan('dev'));
 
 mongoose.set('strictQuery', true);
 mongoose.connect(mongoURI, {useNewUrlParser: true})
     .then(console.log('MongoDB connected.'))
-    .catch(error => console.error(error))
+    .catch(error => console.error(error));
 
-app.use('/api/auth', authRouter)
-app.use('/api', passportRouter, courseRouter, assignmentRouter)
-app.use('/api/admin', adminRouter)
+app.use('/api/auth', authRouter);
+app.use('/api', credentialsHandler, passportRouter, courseRouter, assignmentRouter);
+app.use('/api/admin', adminCredentialsHandler, adminRouter);

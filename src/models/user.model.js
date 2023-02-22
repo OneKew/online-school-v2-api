@@ -13,7 +13,9 @@ export const userSchema = new Schema({
 
     phone: String,
 
-    courses:[{
+    roles: [{type: String, ref: 'Role', required: true}],
+
+    courses: [{
         type: Schema.Types.ObjectId,
         ref: 'Course'
     }]
