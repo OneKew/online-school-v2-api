@@ -1,7 +1,7 @@
-import express from "express";
-import * as assignmentController from "../controllers/assignment.controller.js"
+import express from 'express';
+import * as assignmentController from '../controllers/assignment.controller.js';
 
-export const assignmentRouter = express.Router()
+export const assignmentRouter = express.Router();
 
 assignmentRouter.get('/assignments', assignmentController.getAssignments);
 
@@ -13,4 +13,4 @@ assignmentRouter.post('/assignments', assignmentController.createAssignment);
 
 assignmentRouter.get('/assignments/:id', assignmentController.getSelectedAssignment);
 
-assignmentRouter.delete('/assignments/:id', assignmentController.deleteSelectedAssignment)
+assignmentRouter.delete('/assignments/:id', assignmentController.deleteSelectedAssignment);

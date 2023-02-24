@@ -1,11 +1,11 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-const Schema = mongoose.Schema
+const { Schema } = mongoose;
 
 export const rolesSchema = new Schema({
 
-    value: {type: String, unique: true, default: 'USER'}
+  value: { type: String, unique: true, default: 'USER' },
 
-})
+});
 
-export const Role = mongoose.model('Roles', rolesSchema)
+export const Role = mongoose.model('Roles', rolesSchema);

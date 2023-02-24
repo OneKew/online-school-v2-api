@@ -1,27 +1,27 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-const Schema = mongoose.Schema
+const { Schema } = mongoose;
 
 export const assignmentSchema = new Schema({
-    _id: Schema.Types.ObjectId,
+  _id: Schema.Types.ObjectId,
 
-    lessons: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Lesson'
-    }],
+  lessons: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Lesson',
+  }],
 
-    modules: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Module'
-    }],
+  modules: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Module',
+  }],
 
-    name: {type: String, required: true},
+  name: { type: String, required: true },
 
-    questions: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Question'
-    }]
+  questions: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Question',
+  }],
 
-})
+});
 
-export const Assignment = mongoose.model('Assignment', assignmentSchema)
+export const Assignment = mongoose.model('Assignment', assignmentSchema);

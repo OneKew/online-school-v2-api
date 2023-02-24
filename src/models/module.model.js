@@ -1,25 +1,24 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-const Schema = mongoose.Schema
+const { Schema } = mongoose;
 
 export const moduleSchema = new Schema({
-    _id: Schema.Types.ObjectId,
+  _id: Schema.Types.ObjectId,
 
-    course: {type: Schema.Types.ObjectId, ref: 'Course'},
+  course: { type: Schema.Types.ObjectId, ref: 'Course' },
 
-    name: {type: String, required: true,},
+  name: { type: String, required: true },
 
-    lessons: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Lesson'
-    }],
+  lessons: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Lesson',
+  }],
 
-    assignments: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Assignment'
-    }]
+  assignments: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Assignment',
+  }],
 
-})
+});
 
-
-export const Module = mongoose.model('Module', moduleSchema)
+export const Module = mongoose.model('Module', moduleSchema);

@@ -1,24 +1,24 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-const Schema = mongoose.Schema
+const { Schema } = mongoose;
 
 export const userSchema = new Schema({
-    _id: Schema.Types.ObjectId,
+  _id: Schema.Types.ObjectId,
 
-    email: {type: String, required: true, unique: true},
+  email: { type: String, required: true, unique: true },
 
-    passwordHash: {type: String, required: true},
+  passwordHash: { type: String, required: true },
 
-    name: String,
+  name: String,
 
-    phone: String,
+  phone: String,
 
-    roles: [{type: String, ref: 'Role', required: true}],
+  roles: [{ type: String, ref: 'Role', required: true }],
 
-    courses: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Course'
-    }]
-})
+  courses: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Course',
+  }],
+});
 
-export const User = mongoose.model('User', userSchema)
+export const User = mongoose.model('User', userSchema);

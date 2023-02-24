@@ -1,28 +1,27 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-const Schema = mongoose.Schema
+const { Schema } = mongoose;
 
 export const questionSchema = new Schema({
-    _id: Schema.Types.ObjectId,
+  _id: Schema.Types.ObjectId,
 
-    assignments: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Assignment'
-    }],
+  assignments: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Assignment',
+  }],
 
-    type: {type: String, required: true},
+  type: { type: String, required: true },
 
-    name: {type: String},
+  name: { type: String },
 
-    question: {type: String, required: true},
+  question: { type: String, required: true },
 
-    answers: [{
-        value: {type: String, required: true},
-        description: {type: String, required: true},
-        correct: Boolean
-    }]
+  answers: [{
+    value: { type: String, required: true },
+    description: { type: String, required: true },
+    correct: Boolean,
+  }],
 
-})
+});
 
-
-export const Question = mongoose.model('Question', questionSchema)
+export const Question = mongoose.model('Question', questionSchema);
