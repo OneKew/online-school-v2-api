@@ -1,9 +1,10 @@
 import express from "express";
-import {authRouter} from "./routes/auth.routes.js";
 import bodyParser from "body-parser";
 import morgan from "morgan";
 import cors from "cors";
 import mongoose from "mongoose";
+
+import {authRouter} from "./routes/auth.routes.js";
 import {mongoURI} from "./config/keys.config.js";
 import {passportRouter} from "./routes/passport.routes.js";
 import {courseRouter} from "./routes/course.routes.js";
