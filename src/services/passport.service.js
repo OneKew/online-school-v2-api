@@ -1,9 +1,10 @@
-import { User } from '../models/user.model.js';
+import {User} from '../models/user.model.js';
 
 class PassportService {
   async getUserData(reqBody) {
     const user = await User.findById(reqBody.id).catch(() => ({ message: `Can't find user with id: ${reqBody.id}` }));
-    const { passwordHash, roles, ...userData } = user._doc;
+      const {_doc} = user;
+      const { passwordHash, roles, ...userData } = _doc;
     return userData;
   }
 
