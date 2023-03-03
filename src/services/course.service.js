@@ -142,7 +142,6 @@ class CourseService {
     return courses;
   }
 
-  // todo make courseView
   async viewCourse(id) {
     const course = await Course.findById(id)
       .populate({

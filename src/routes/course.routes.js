@@ -6,6 +6,7 @@ import moduleValidator from '../utils/module.validator.js';
 import lessonValidator from '../utils/lesson.validator.js';
 import credentialsHandler from '../utils/credentialsHandlers/credentials.handler.js';
 import courseOwnerHandler from '../utils/credentialsHandlers/courseOwner.handler.js';
+import CourseExistingHandler from "../utils/credentialsHandlers/courseExisting.handler.js";
 
 export const courseRouter = express.Router();
 
@@ -15,7 +16,7 @@ courseRouter.post('/courses', credentialsHandler, courseValidator, validationErr
 courseRouter.get('/courses/:id', credentialsHandler, courseController.getSelectedCourse);
 courseRouter.patch('/courses/:id', credentialsHandler, courseValidator, validationErrorHandlerUtil, courseController.updateSelectedCourse);
 
-courseRouter.post('/courses/:id/modules', credentialsHandler, moduleValidator, validationErrorHandlerUtil, courseController.createModule);
+courseRouter.post('/courses/:id/modules', credentialsHandler, CourseExistingHandler, moduleValidator, validationErrorHandlerUtil, courseController.createModule);
 courseRouter.get('/modules/:id', credentialsHandler, courseController.getSelectedModule);
 courseRouter.patch('/modules/:id', credentialsHandler, moduleValidator, validationErrorHandlerUtil, courseController.updateSelectedModule);
 
