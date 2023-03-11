@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { Course } from '../models/course.model.js';
 import { Module } from '../models/module.model.js';
 import { Lesson } from '../models/lesson.model.js';
-import { Assignment } from '../models/assignment.model.js';
+import { Task } from '../models/task.model.js';
 import { User } from '../models/user.model.js';
 
 class CourseService {
@@ -94,7 +94,7 @@ class CourseService {
     const lesson = await doc.save()
       .then(async (ls) => {
         if (ls.embedded) {
-          await Assignment.findByIdAndUpdate(ls.embedded.checkpoints.question)
+          await Task.findByIdAndUpdate(ls.embedded.checkpoints.question)
             .catch((e) => {
               throw new Error(e);
             });

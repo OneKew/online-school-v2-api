@@ -9,7 +9,7 @@ import { mongoURI } from './config/keys.config.js';
 import { passportRouter } from './routes/passport.routes.js';
 import { courseRouter } from './routes/course.routes.js';
 import { adminRouter } from './routes/admin.routes.js';
-import { assignmentRouter } from './routes/assignment.routes.js';
+import { taskRouter } from './routes/task.routes.js';
 import adminCredentialsHandler from './utils/credentialsHandlers/adminCredentials.handler.js';
 import credentialsHandler from './utils/credentialsHandlers/credentials.handler.js';
 
@@ -27,5 +27,5 @@ mongoose.connect(mongoURI, { useNewUrlParser: true })
   .catch((error) => console.error(error));
 
 app.use('/api/auth', authRouter);
-app.use('/api', credentialsHandler, passportRouter, courseRouter, assignmentRouter);
+app.use('/api', credentialsHandler, passportRouter, courseRouter, taskRouter);
 app.use('/api/admin', adminCredentialsHandler, adminRouter);

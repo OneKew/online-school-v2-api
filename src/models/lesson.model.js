@@ -18,15 +18,15 @@ export const lessonSchema = new Schema({
       url: { type: String, required: true },
       checkpoints: [{
         timestamp: { type: Number, required: true },
-        question: { type: Schema.Types.ObjectId, ref: 'Assignment', required: true },
+        question: { type: Schema.Types.ObjectId, ref: 'Task', required: true },
       }],
     },
     required: false,
   },
 
-  assignments: [{
+  tasks: [{
     type: Schema.Types.ObjectId,
-    ref: 'Assignment',
+    ref: 'Task',
   }],
 
 });

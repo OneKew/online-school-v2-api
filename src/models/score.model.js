@@ -4,9 +4,9 @@ const {Schema} = mongoose;
 
 export const scoreSchema = new Schema({
     _id: Schema.Types.ObjectId,
-    assignment: {
+    task: {
         type: Schema.Types.ObjectId,
-        ref: 'Assignment',
+        ref: 'Task',
         required: true
     },
     wrongAnswers: [{

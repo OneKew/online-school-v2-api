@@ -5,9 +5,9 @@ const { Schema } = mongoose;
 export const questionSchema = new Schema({
   _id: Schema.Types.ObjectId,
 
-  assignments: [{
+  tasks: [{
     type: Schema.Types.ObjectId,
-    ref: 'Assignment',
+    ref: 'Task',
   }],
 
   type: { type: String, required: true },

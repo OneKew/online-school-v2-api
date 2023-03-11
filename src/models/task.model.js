@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
 
-export const assignmentSchema = new Schema({
+export const taskSchema = new Schema({
   _id: Schema.Types.ObjectId,
 
   lessons: [{
@@ -29,4 +29,4 @@ export const assignmentSchema = new Schema({
 
 });
 
-export const Assignment = mongoose.model('Assignment', assignmentSchema);
+export const Task = mongoose.model('Task', taskSchema);

@@ -14,9 +14,9 @@ export const moduleSchema = new Schema({
     ref: 'Lesson',
   }],
 
-  assignments: [{
+  tasks: [{
     type: Schema.Types.ObjectId,
-    ref: 'Assignment',
+    ref: 'Task',
   }],
 
 });
