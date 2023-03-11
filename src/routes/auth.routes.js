@@ -5,6 +5,11 @@ import authValidator from '../utils/auth.validator.js';
 
 export const authRouter = express.Router();
 
-authRouter.post('/login', validationErrorHandlerUtil, authController.login);
+authRouter.post('/login',
+    validationErrorHandlerUtil,
+    authController.login);
 
-authRouter.post('/register', authValidator, validationErrorHandlerUtil, authController.registerUser);
+authRouter.post('/register',
+    authValidator,
+    validationErrorHandlerUtil,
+    authController.registerUser);
