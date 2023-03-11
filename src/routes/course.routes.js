@@ -72,3 +72,8 @@ courseRouter.get('/courses/:id/view',
     courseOwnerHandler,
     courseController.viewCourse);
 
+courseRouter.get('/courses/:id/students',
+    courseController.getCourseStudents)
+
+courseRouter.get('/courses/:id/students/:student-id',
+    courseController.getStudent)

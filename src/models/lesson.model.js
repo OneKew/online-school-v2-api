@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 export const lessonSchema = new Schema({
   _id: Schema.Types.ObjectId,
 
-  module: { type: Schema.Types.ObjectId, ref: 'Module' },
+  module: { type: Schema.Types.ObjectId, ref: 'Module', required: true },
 
   name: { type: String, required: true },
 

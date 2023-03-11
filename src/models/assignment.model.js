@@ -22,6 +22,11 @@ export const assignmentSchema = new Schema({
     ref: 'Question',
   }],
 
+  scores: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Score'
+  }]
+
 });
 
 export const Assignment = mongoose.model('Assignment', assignmentSchema);
