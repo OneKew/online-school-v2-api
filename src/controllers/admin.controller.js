@@ -42,7 +42,7 @@ export const updateUserClaims = async (req, res) => {
 
 export const createRoles = async (req, res) => {
   try {
-    await adminService.createRoles(req.body);
+    await adminService.updateRoles();
     res.json('Roles have been created.');
   } catch (e) {
     console.log(e);

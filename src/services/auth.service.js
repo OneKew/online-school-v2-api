@@ -32,7 +32,7 @@ class AuthService {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
     const defaultRole = await Role.findOne({ value: 'USER' });
-    const doc = new User({
+    const doc = await new User({
       _id: new mongoose.Types.ObjectId(),
       email: reqBody.email,
       passwordHash: hash,
