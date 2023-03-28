@@ -3,6 +3,7 @@ import * as taskController from '../controllers/task.controller.js';
 import credentialsHandler from "../utils/credentialsHandlers/credentials.handler.js";
 import teacherCredentialsHandler from "../utils/credentialsHandlers/teacherCredentials.handler.js";
 import taskValidator from "../utils/validators/course/task.validator.js";
+import validationErrorHandlerUtil from "../utils/validators/validationErrorHandler.util.js";
 
 export const taskRouter = express.Router();
 
@@ -28,13 +29,14 @@ taskRouter.post('/tasks',
     teacherCredentialsHandler,
     //todo add validators
     taskValidator,
+    validationErrorHandlerUtil,
     taskController.createTask);
 
 taskRouter.patch('/tasks/:id',
     credentialsHandler,
     teacherCredentialsHandler,
-    //todo add validators
     taskValidator,
+    validationErrorHandlerUtil,
     taskController.editTask)
 
 taskRouter.get('/tasks/:id',
@@ -48,8 +50,7 @@ taskRouter.delete('/tasks/:id',
     taskController.deleteSelectedTask);
 
 
-
-taskRouter.post('tasks/:id',
+taskRouter.post('/courses/:courseId/tasks/:taskId/results',
     credentialsHandler,
     //todo add validators
     taskController.answerTheTask) //ответ на задание

@@ -17,8 +17,8 @@ courseRouter.get('/courses/all',
 
 courseRouter.post('/courses',
     credentialsHandler,
-    courseValidator,
     teacherCredentialsHandler,
+    courseValidator,
     validationErrorHandlerUtil,
     courseController.createCourse);
 

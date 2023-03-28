@@ -20,7 +20,7 @@ export const taskSchema = new Schema({
         ref: 'User'
     },
 
-    name: {type: String, required: true, },
+    name: {type: String, required: true,},
 
     type: {type: String, required: true},
 
@@ -31,6 +31,8 @@ export const taskSchema = new Schema({
         name: {type: String, default: 'Question'},
 
         question: {type: String, required: true},
+
+        weight: {type: Number, required: true, default: 1},
 
         answers: [{
             value: {type: String, required: true},

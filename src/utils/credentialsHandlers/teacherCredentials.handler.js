@@ -6,7 +6,6 @@ export default (req, res, next) => {
     if (token) {
         try {
             const decoded = jwt.verify(token, jwtSecret);
-            console.log(decoded)
             if (decoded.roles.includes('TEACHER')) {
                 req.claims = decoded;
                 return next();
